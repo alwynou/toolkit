@@ -1,6 +1,6 @@
 {
   "name": "@alwynou/toolkit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "alwynou <alwynou@163.com>",
   "description": "A simple toolkit for javascript.",
   "main": "./dist/index.cjs.js",
