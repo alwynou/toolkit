@@ -13,9 +13,9 @@ export async function map<T extends Array<any>>(
     try {
       // eslint-disable-next-line no-await-in-loop
       const ret = await iterate.call(context, data[index], index, data)
-      rets.push(ret)
+      rets.unshift(ret)
     } catch (error) {
-      rets.push(null)
+      rets.unshift(null)
     }
     len--
   }
