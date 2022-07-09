@@ -5,7 +5,6 @@ specifiers:
   '@typescript-eslint/parser': ^5.30.5
   bumpp: ^8.2.1
   consola: ^2.15.3
-  cross-env: ^7.0.3
   esbuild: ^0.14.48
   eslint: ^7.32.0 || ^8.2.0
   eslint-config-airbnb-base: ^15.0.0
@@ -24,7 +23,6 @@ devDependencies:
   '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
   bumpp: 8.2.1
   consola: 2.15.3
-  cross-env: 7.0.3
   esbuild: 0.14.48
   eslint: 8.19.0
   eslint-config-airbnb-base: 15.0.0_q2xwze32dd33a2fc2qubwr4ie4
@@ -481,14 +479,6 @@ packages:
 
   /consola/2.15.3:
     resolution: {integrity: sha512-9vAdYbHj6x2fLKC4+oPH0kFzY/orMZyG2Aj+kNylHxKGJ/Ed4dpNyAQYwJOdqO4zdM7XpVHmyejQDcQHrnuXbw==}
-    dev: true
-
-  /cross-env/7.0.3:
-    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
-    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
     dev: true
 
   /cross-spawn/7.0.3:
