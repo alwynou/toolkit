@@ -1,0 +1,42 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Npm Publish
+
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2.0.1
+      with:
+        version: 7.3.0
+          
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'pnpm'
+        
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Conventional github releaser
+      run: npx conventional-github-releaser -p angular
+      continue-on-error: true
+      env:
+        CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+    - name: Publish
+      run: pnpm run publish-npm
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
