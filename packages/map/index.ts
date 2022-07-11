@@ -3,8 +3,7 @@ type IterateSyncFn<T> = (item: any, index: number | string, data: T) => Promise<
 
 export async function map<T extends Array<any>>(
   data: T,
-  iterate: IterateFn<T> | IterateSyncFn<T>,
-  context?: any
+  iterate: IterateFn<T> | IterateSyncFn<T>
 ) {
   const rets: any[] = []
   let len = data.length
@@ -12,7 +11,7 @@ export async function map<T extends Array<any>>(
     const index = len - 1
     try {
       // eslint-disable-next-line no-await-in-loop
-      const ret = await iterate.call(context, data[index], index, data)
+      const ret = await iterate(data[index], index, data)
       rets.unshift(ret)
     } catch (error) {
       rets.unshift(null)
