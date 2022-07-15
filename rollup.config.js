@@ -1,6 +1,6 @@
 const dts = require('rollup-plugin-dts').default
 const esbuild = require('rollup-plugin-esbuild').default
-const { pkgName, pkgFullName } = require("./scripts/constant")
+const { pkgName, pkgFullName } = require('./scripts/constant')
 
 const input = `packages/${pkgName}/index.ts`
 const rollupConfig = []
