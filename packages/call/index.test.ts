@@ -8,5 +8,6 @@ describe('call', () => {
     expect(call(1, 2, 3)).toBe(1)
     const obj = { a: 1 }
     expect(call(obj, function (this: any) { return this.a })).toBe(1)
+    expect(call((a: number, b: number) => a + b, 1, 2)).toBe(3)
   })
 })
