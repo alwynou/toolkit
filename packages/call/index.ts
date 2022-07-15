@@ -4,10 +4,9 @@ export function call<F>(maybeFn: F, ...args: any[]): F extends () => infer R ? R
 export function call<F extends Function>(context: any, maybeFn: F, ...args: any[]): F extends () => infer R ? R : any
 export function call(context: any, maybeFn?: any, ...args: any[]) {
   if (isFunction(context)) {
+    args = [maybeFn, ...args]
     maybeFn = context
     context = undefined
-    // eslint-disable-next-line prefer-rest-params
-    args = [...arguments].slice(1)
   }
   else if (!isFunction(maybeFn)) {
     maybeFn = context
