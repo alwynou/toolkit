@@ -6,7 +6,7 @@ const input = `packages/${pkgName}/index.ts`
 const rollupConfig = []
 const iifeName = pkgName.substring(0, 1).toUpperCase() + pkgName.substring(1)
 const iifeGlobals = {
-  [pkgFullName]: iifeName
+  [pkgFullName]: iifeName,
 }
 const external = [pkgFullName]
 
@@ -14,7 +14,7 @@ const esbuildMinifer = (options) => {
   const { renderChunk } = esbuild(options)
   return {
     name: 'esbuild-minifer',
-    renderChunk
+    renderChunk,
   }
 }
 
@@ -23,18 +23,18 @@ rollupConfig.push({
   output: [
     {
       file: 'dist/index.cjs.js',
-      format: 'cjs'
+      format: 'cjs',
     },
     {
       file: 'dist/index.esm.js',
-      format: 'es'
+      format: 'es',
     },
     {
       file: 'dist/index.iife.js',
       format: 'iife',
       extend: true,
       name: iifeName,
-      globals: iifeGlobals
+      globals: iifeGlobals,
     },
     {
       file: 'dist/index.iife.min.js',
@@ -43,26 +43,26 @@ rollupConfig.push({
       name: iifeName,
       globals: iifeGlobals,
       plugins: [esbuildMinifer({
-        minify: true
-      })]
-    }
+        minify: true,
+      })],
+    },
   ],
   plugins: [
-    esbuild()
+    esbuild(),
   ],
-  external
+  external,
 })
 
 rollupConfig.push({
   input,
   output: {
     file: 'dist/index.d.ts',
-    format: 'es'
+    format: 'es',
   },
   plugins: [
-    dts()
+    dts(),
   ],
-  external
+  external,
 })
 
 module.exports = rollupConfig

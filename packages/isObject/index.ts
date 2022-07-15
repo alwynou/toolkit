@@ -1,4 +1,4 @@
-import { typeOf } from '../typeOf';
+import { typeOf } from '../typeOf'
 
 /**
  * 判断是否是真正的对象类型(严格判断)

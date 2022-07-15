@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { sleep } from './index';
+import { describe, expect, it } from 'vitest'
+import { sleep } from './index'
 
 describe('sleep', () => {
   it('sleep 1s', async () => {

@@ -12,31 +12,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2.0.1
-      with:
-        version: 7.3.0
-          
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.x
-        registry-url: 'https://registry.npmjs.org'
-        cache: 'pnpm'
-        
-    - name: Install dependencies
-      run: pnpm install
+      - uses: actions/checkout@v2
 
-    - name: Conventional github releaser
-      run: npx conventional-github-releaser -p angular
-      continue-on-error: true
-      env:
-        CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      
-    - name: Publish
-      run: pnpm run publish-npm
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 7.3.0
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Conventional github releaser
+        run: npx conventional-github-releaser -p angular
+        continue-on-error: true
+        env:
+          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Publish
+        run: pnpm run publish-npm
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 

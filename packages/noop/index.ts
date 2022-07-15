@@ -1,4 +1,4 @@
 /**
  * 空函数
  */
-export const NOOP = () => {};
+export const NOOP = () => {}

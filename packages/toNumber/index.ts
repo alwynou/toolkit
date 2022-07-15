@@ -17,8 +17,10 @@ import { typeOf } from '../typeOf'
  * @returns
  */
 export function toNumber(target: any): number {
-  if (isNumber(target)) return target
-  if (typeOf(target) === 'symbol') return NaN
+  if (isNumber(target))
+    return target
+  if (typeOf(target) === 'symbol')
+    return NaN
 
   return parseFloat(target)
 }

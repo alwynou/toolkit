@@ -8,6 +8,7 @@ import { typeOf } from '../typeOf'
  * @param arr
  */
 export function isArray(arr: unknown): arr is Array<any> {
-  if (Array.isArray) return Array.isArray(arr)
+  if (Array.isArray)
+    return Array.isArray(arr)
   return typeOf(arr) === 'array'
 }

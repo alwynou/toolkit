@@ -13,12 +13,13 @@ import { isArray } from '../isArray'
  * @param keys
  */
 export function omit<T extends object, K extends keyof T>(obj: T, keys: K[] | K = []): Omit<T, K> {
-  // eslint-disable-next-line no-param-reassign
-  if (!isArray(keys)) keys = [keys]
+  if (!isArray(keys))
+    keys = [keys]
 
   const cloneObj = { ...obj }
-  if (Object.keys(obj).length === keys.length) return cloneObj
-  keys.forEach((key) => Reflect.deleteProperty(cloneObj, key))
+  if (Object.keys(obj).length === keys.length)
+    return cloneObj
+  keys.forEach(key => Reflect.deleteProperty(cloneObj, key))
 
   return cloneObj
 }

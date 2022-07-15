@@ -2,11 +2,11 @@ import { isObjectType } from '../isObjectType'
 
 type Get<T, K> = K extends `${infer L}.${infer R}`
   ? L extends keyof T
-  ? Get<T[L], R>
-  : undefined
+    ? Get<T[L], R>
+    : undefined
   : K extends keyof T
-  ? T[K]
-  : undefined
+    ? T[K]
+    : undefined
 
 export function get<T extends object, K extends string>(obj: T, path: K): Get<T, K> {
   const pathArr = path.split('.')

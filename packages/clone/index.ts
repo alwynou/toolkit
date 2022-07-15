@@ -1,4 +1,4 @@
-import { cloneBase } from '../cloneBase';
+import { cloneBase } from '../cloneBase'
 
 /**
  * 浅拷贝

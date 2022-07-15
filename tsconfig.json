@@ -14,10 +14,10 @@
     "removeComments": false,
     "declaration": true,
     "jsx": "preserve",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
   },
   "include": [
-    "packages",
+    "packages"
   ],
   "exclude": [
     "node_modules",

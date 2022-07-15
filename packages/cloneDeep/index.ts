@@ -1,4 +1,4 @@
-import { cloneBase } from '../cloneBase';
+import { cloneBase } from '../cloneBase'
 
 /**
  * 深拷贝（不支持递归数据）

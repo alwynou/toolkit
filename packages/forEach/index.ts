@@ -20,7 +20,7 @@ type ForEachData = any[] | Record<any, any>
 export function forEach<T extends ForEachData>(
   data: T,
   iterate: ForEachIterate<T>,
-  context?: any
+  context?: any,
 ): void {
   if (data) {
     if (Array.isArray(data)) {
@@ -30,10 +30,11 @@ export function forEach<T extends ForEachData>(
         iterate.call(context, data[index], index, data)
         len--
       }
-    } else if (isObject(data)) {
-      // eslint-disable-next-line no-restricted-syntax
+    }
+    else if (isObject(data)) {
       for (const key in data) {
-        if (Reflect.has(data, key)) { iterate.call(context, data[key], key, data) }
+        if (Reflect.has(data, key))
+          iterate.call(context, data[key], key, data)
       }
     }
   }

@@ -1,4 +1,4 @@
-const pkgName = 'toolkit';
+const pkgName = 'toolkit'
 
-exports.pkgName = pkgName;
-exports.pkgFullName = `@alwynou/${pkgName}`;
+exports.pkgName = pkgName
+exports.pkgFullName = `@alwynou/${pkgName}`

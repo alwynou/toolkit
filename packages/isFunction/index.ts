@@ -7,5 +7,5 @@
  * @param fn
  */
 export function isFunction(fn: unknown): fn is Function {
-  return typeof fn === 'function';
+  return typeof fn === 'function'
 }

@@ -3,7 +3,7 @@
  */
 
 import { debounce } from '../debounce'
-import type{ Handler, DebounceOptions, DebounceReturnType } from '../debounce'
+import type{ DebounceOptions, DebounceReturnType, Handler } from '../debounce'
 import { isObject } from '../isObject'
 
 type ThrottleReturnType<T extends Handler> = DebounceReturnType<T>
@@ -21,7 +21,7 @@ type ThrottleReturnType<T extends Handler> = DebounceReturnType<T>
 export function throttle<T extends Handler>(
   func: T,
   wait: number,
-  options: DebounceOptions
+  options: DebounceOptions,
 ): ThrottleReturnType<T> {
   let leading = true
   let trailing = true
@@ -34,6 +34,6 @@ export function throttle<T extends Handler>(
   return debounce(func, wait, {
     leading,
     maxWait: wait,
-    trailing
+    trailing,
   })
 }

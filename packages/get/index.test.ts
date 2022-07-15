@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { get } from './index'
 
 describe('get', () => {
@@ -6,9 +6,9 @@ describe('get', () => {
     const obj = {
       a: {
         b: {
-          c: ['d']
-        }
-      }
+          c: ['d'],
+        },
+      },
     }
     expect(get(obj, 'a.b.c.0')).toBe('d')
   })

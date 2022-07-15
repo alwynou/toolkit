@@ -8,7 +8,8 @@ function run() {
 
   if (newFnName) {
     const newDir = path.resolve(__dirname, `../packages/${newFnName}`)
-    if (fs.existsSync(newDir)) return
+    if (fs.existsSync(newDir))
+      return
     fs.mkdirSync(newDir)
 
     const tpl = `/**

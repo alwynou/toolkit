@@ -1,5 +1,3 @@
-/* eslint-disable no-multi-assign */
-/* eslint-disable no-param-reassign */
 import { isObject } from '../isObject'
 
 export type Handler = (...args: any[]) => any
@@ -11,7 +9,7 @@ const now = () => Date.now()
  * @fork https://github.com/lodash/lodash/blob/master/debounce.js
  */
 
-export type DebounceOptions = {
+export interface DebounceOptions {
   // 前置执行
   leading?: boolean
   // 后置执行
@@ -20,7 +18,7 @@ export type DebounceOptions = {
   maxWait?: number
 }
 
-export type DebounceReturnType<T extends Handler> = {
+export interface DebounceReturnType<T extends Handler> {
   (...args: Parameters<T>): ReturnType<T>
   cancel: HandlerNoRet
   flush: HandlerNoRet
@@ -40,7 +38,7 @@ export type DebounceReturnType<T extends Handler> = {
 export function debounce<T extends Handler>(
   func: T,
   wait: number,
-  options?: DebounceOptions
+  options?: DebounceOptions,
 ): DebounceReturnType<T> {
   let lastArgs: any
   let lastThis: any
@@ -75,7 +73,7 @@ export function debounce<T extends Handler>(
     // Reset any `maxWait` timer.
     lastInvokeTime = time
     // Start the timer for the trailing edge.
-    // eslint-disable-next-line no-use-before-define
+
     timerId = setTimeout(timerExpired, wait)
     // Invoke the leading edge.
     return leading ? invokeFunc(time) : result
@@ -104,11 +102,11 @@ export function debounce<T extends Handler>(
     )
   }
 
-  // eslint-disable-next-line consistent-return
   function timerExpired() {
     const time = now()
-    // eslint-disable-next-line no-use-before-define
-    if (shouldInvoke(time)) return trailingEdge(time)
+
+    if (shouldInvoke(time))
+      return trailingEdge(time)
 
     // Restart the timer.
     timerId = setTimeout(timerExpired, remainingWait(time))
@@ -119,14 +117,16 @@ export function debounce<T extends Handler>(
 
     // Only invoke if we have `lastArgs` which means `func` has been
     // debounced at least once.
-    if (trailing && lastArgs) return invokeFunc(time)
+    if (trailing && lastArgs)
+      return invokeFunc(time)
 
     lastArgs = lastThis = undefined
     return result
   }
 
   function cancel() {
-    if (timerId !== undefined) clearTimeout(timerId)
+    if (timerId !== undefined)
+      clearTimeout(timerId)
 
     lastInvokeTime = 0
     lastArgs = lastCallTime = lastThis = timerId = undefined
@@ -145,7 +145,8 @@ export function debounce<T extends Handler>(
     lastCallTime = time
 
     if (isInvoking) {
-      if (timerId === undefined) return leadingEdge(lastCallTime)
+      if (timerId === undefined)
+        return leadingEdge(lastCallTime)
 
       if (maxing) {
         // Handle invocations in a tight loop.
@@ -154,7 +155,8 @@ export function debounce<T extends Handler>(
         return invokeFunc(lastCallTime)
       }
     }
-    if (timerId === undefined) timerId = setTimeout(timerExpired, wait)
+    if (timerId === undefined)
+      timerId = setTimeout(timerExpired, wait)
 
     return result
   }

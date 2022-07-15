@@ -8,7 +8,6 @@ function getCtorObject(val: any, args?: any) {
 }
 
 function handleValueClone(item: any, isDeep: boolean) {
-  // eslint-disable-next-line no-use-before-define
   return isDeep ? cloneValue(item, isDeep) : item
 }
 
@@ -56,7 +55,8 @@ function cloneValue<T>(val: T, isDeep: boolean) {
 }
 
 export function cloneBase<T>(obj: T, deep: boolean): T {
-  if (obj) return cloneValue(obj, deep)
+  if (obj)
+    return cloneValue(obj, deep)
 
   return obj
 }

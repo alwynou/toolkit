@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-redeclare */
 export type SleepReturnType<T> = ReturnType<() => Promise<T>>
 type SleepExecutor<T> = () => T
 
@@ -39,7 +37,8 @@ export function sleep<T>(wait: number, fn?: SleepExecutor<T>): SleepReturnType<T
   return new Promise((resolve) => {
     let executor = resolve
 
-    if (fn) executor = () => resolve(fn())
+    if (fn)
+      executor = () => resolve(fn())
 
     setTimeout(executor, wait)
   })

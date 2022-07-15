@@ -1,16 +1,35 @@
 {
   "name": "@alwynou/toolkit",
   "version": "0.0.3",
-  "author": "alwynou <alwynou@163.com>",
   "description": "A simple toolkit for javascript.",
-  "main": "./dist/index.cjs.js",
-  "types": "./dist/index.d.ts",
+  "author": "alwynou <alwynou@163.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/alwynou/toolkit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alwynou/toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alwynou/toolkit/issues"
+  },
+  "keywords": [
+    "toolkit",
+    "utils",
+    "functions"
+  ],
   "exports": {
     ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.esm.js"
     }
   },
+  "main": "./dist/index.cjs.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "build:entry": "node ./scripts/build-entry.js",
@@ -21,26 +40,8 @@
     "release": "node scripts/release.js",
     "test": "vitest run"
   },
-  "keywords": [
-    "toolkit",
-    "utils",
-    "functions"
-  ],
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alwynou/toolkit.git"
-  },
-  "bugs": {
-    "url": "https://github.com/alwynou/toolkit/issues"
-  },
-  "homepage": "https://github.com/alwynou/toolkit#readme",
   "devDependencies": {
+    "@alwynou/eslint-config": "^0.25.3",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "bumpp": "^8.2.1",

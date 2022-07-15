@@ -13,14 +13,15 @@ import { isArray } from '../isArray'
  * @param keys
  */
 export function pick<T extends object, K extends keyof T>(obj: T, keys: K[] | K = []): Pick<T, K> {
-  // eslint-disable-next-line no-param-reassign
-  if (!isArray(keys)) keys = [keys]
+  if (!isArray(keys))
+    keys = [keys]
 
-  if (Object.keys(obj).length === keys.length) return { ...obj }
+  if (Object.keys(obj).length === keys.length)
+    return { ...obj }
 
   const cloneObj = {} as Pick<T, K>
-  // eslint-disable-next-line no-return-assign
-  keys.forEach((k) => (cloneObj[k] = obj[k]))
+
+  keys.forEach(k => (cloneObj[k] = obj[k]))
 
   return cloneObj
 }
