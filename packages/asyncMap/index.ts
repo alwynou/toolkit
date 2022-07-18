@@ -6,17 +6,17 @@ export async function asyncMap<T extends Array<any>>(
   iterate: IterateFn<T> | IterateSyncFn<T>,
 ) {
   const ret: any[] = []
-  let len = data.length
-  while (len) {
-    const index = len - 1
+  const len = data.length
+  let index = 0
+  while (index < len) {
     try {
       const r = await iterate(data[index], index, data)
-      ret.unshift(r)
+      ret.push(r)
     }
     catch (error) {
-      ret.unshift(null)
+      ret.push(null)
     }
-    len--
+    index++
   }
   return ret
 }
