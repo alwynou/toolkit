@@ -10,8 +10,8 @@ export async function asyncMap<T extends Array<any>>(
   while (len) {
     const index = len - 1
     try {
-      const ret = await iterate(data[index], index, data)
-      ret.unshift(ret)
+      const r = await iterate(data[index], index, data)
+      ret.unshift(r)
     }
     catch (error) {
       ret.unshift(null)
