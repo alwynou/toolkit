@@ -1,7 +1,6 @@
 export * from '../asyncMap'
 export * from '../call'
 export * from '../clone'
-export * from '../cloneBase'
 export * from '../cloneDeep'
 export * from '../curry'
 export * from '../debounce'
