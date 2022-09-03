@@ -20,7 +20,7 @@ export function curry<T extends any[], R>(fn: (...args: T) => R): Curry<T, R> {
     if (args.length >= fn.length)
       return fn(...args as T)
 
-    return (...arg: any[]) => next(...args, ...arg)
+    return (...restArgs: any[]) => next(...args, ...restArgs)
   }
 
   return next as any
