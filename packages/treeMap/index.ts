@@ -46,7 +46,7 @@ export function treeMap<T extends treeItem | Array<treeItem>>(
     const rawRet = tree.map((item, index, source) => {
       if (!isObject(item)) {
         needFilter = true
-        return null as any
+        return strict ? null as any : item
       }
 
       if (Array.isArray(item[childKey]))
