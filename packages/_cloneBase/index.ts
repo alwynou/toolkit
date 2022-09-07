@@ -7,18 +7,34 @@ function getCtorObject(val: any, args?: any) {
   return args ? new Ctor(args) : new Ctor()
 }
 
-function handleValueClone(item: any, isDeep: boolean) {
-  return isDeep ? cloneValue(item, isDeep) : item
+type CacheClone = WeakMap<any, any>
+function handleValueClone(item: any, isDeep: boolean, cache: CacheClone) {
+  return isDeep ? cloneValue(item, isDeep, cache) : item
 }
 
-function cloneValue<T>(val: T, isDeep: boolean) {
+function cloneSymbol(sym: Symbol): Symbol {
+  const symStr = sym.toString()
+  return Symbol(symStr.replace(/\w+\((.*)\)/, '$1'))
+}
+
+function cloneValue<T>(val: T, isDeep: boolean, cache: CacheClone) {
   if (val) {
+    const cacheVal = cache.get(val)
+    if (cacheVal)
+      return cacheVal
+
     switch (typeOf(val)) {
       case 'object':
+      case 'array':
       case 'arguments': {
-        const restObj = getCtorObject(val)
+        let arg
+        if (Array.isArray(val))
+          arg = val.length
+
+        const restObj = getCtorObject(val, arg)
+        cache.set(val, restObj)
         forEach(val, (item, key) => {
-          restObj[key] = handleValueClone(item, isDeep)
+          restObj[key] = handleValueClone(item, isDeep, cache)
         })
         return restObj
       }
@@ -26,24 +42,30 @@ function cloneValue<T>(val: T, isDeep: boolean) {
       case 'regExp': {
         return getCtorObject(val, (val as any).valueOf())
       }
-      case 'array': {
-        const restArr: any[] = new Array((val as any).length)
-        forEach(val, (item, index) => {
-          restArr[index as any] = handleValueClone(item, isDeep)
+      case 'function': {
+        // eslint-disable-next-line no-new-func
+        const fn = new Function(`return ${val}`)() as any
+        forEach(val, (value, key) => {
+          fn[key] = handleValueClone(value, isDeep, cache)
         })
-        return restArr
+        return fn
+      }
+      case 'symbol': {
+        return cloneSymbol(val as unknown as Symbol)
       }
       case 'set': {
         const restSet = getCtorObject(val)
-        restSet.forEach((item: any) => {
-          restSet.add(handleValueClone(item, isDeep))
+        cache.set(val, restSet);
+        (val as unknown as Set<any>).forEach((item: any) => {
+          restSet.add(handleValueClone(item, isDeep, cache))
         })
         return restSet
       }
       case 'map': {
         const restMap = getCtorObject(val)
-        restMap.forEach((item: any) => {
-          restMap.set(handleValueClone(item, isDeep))
+        cache.set(val, restMap);
+        (val as unknown as Map<any, any>).forEach((item: any) => {
+          restMap.set(handleValueClone(item, isDeep, cache))
         })
         return restMap
       }
@@ -56,7 +78,6 @@ function cloneValue<T>(val: T, isDeep: boolean) {
 
 export function cloneBase<T>(obj: T, deep: boolean): T {
   if (obj)
-    return cloneValue(obj, deep)
-
+    return cloneValue(obj, deep, new WeakMap())
   return obj
 }
