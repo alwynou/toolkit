@@ -1,5 +1,3 @@
-import { isObject } from '../isObject'
-
 type ForEachIterate<T> = (item: any, index: number | string, data: T) => void
 type ForEachData = any[] | Record<any, any>
 /**
@@ -26,17 +24,25 @@ export function forEach<T extends ForEachData>(
     const _context = context || data
 
     if (Array.isArray(data)) {
-      let len = data.length
-      while (len) {
-        const index = len - 1
+      // performance optimization
+      let index = 0
+      const arrLen = data.length
+      while (index < arrLen) {
         iterate.call(_context, data[index], index, data)
-        len--
+        index++
       }
     }
-    else if (isObject(data)) {
+    else {
       for (const key in data) {
         if (Reflect.has(data, key))
           iterate.call(_context, data[key], key, data)
+      }
+      // for symbol property
+      const symbolKeys = Object.getOwnPropertySymbols(data)
+      if (symbolKeys.length) {
+        forEach(symbolKeys, function (this: any, key) {
+          iterate.call(this, data[key], key, data)
+        }, context)
       }
     }
   }
