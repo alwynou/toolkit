@@ -17,7 +17,8 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"]
   },
   "include": [
-    "packages"
+    "packages",
+    "types"
   ],
   "exclude": [
     "node_modules",
