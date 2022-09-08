@@ -1,5 +1,8 @@
 type ForEachIterate<T> = (item: any, index: number | string, data: T) => void
 type ForEachData = any[] | Record<any, any>
+interface ForEachConfig {
+  symbol?: boolean
+}
 /**
  * 遍历对象和数组
  *
@@ -19,6 +22,7 @@ export function forEach<T extends ForEachData>(
   data: T,
   iterate: ForEachIterate<T>,
   context?: any,
+  config?: ForEachConfig,
 ): void {
   if (data) {
     const _context = context || data
@@ -37,12 +41,14 @@ export function forEach<T extends ForEachData>(
         if (Reflect.has(data, key))
           iterate.call(_context, data[key], key, data)
       }
-      // for symbol property
-      const symbolKeys = Object.getOwnPropertySymbols(data)
-      if (symbolKeys.length) {
-        forEach(symbolKeys, function (this: any, key) {
-          iterate.call(this, data[key], key, data)
-        }, context)
+      if (config?.symbol) {
+        // for symbol property
+        const symbolKeys = Object.getOwnPropertySymbols(data)
+        if (symbolKeys.length) {
+          forEach(symbolKeys, function (this: any, key) {
+            iterate.call(this, data[key], key, data)
+          }, context)
+        }
       }
     }
   }

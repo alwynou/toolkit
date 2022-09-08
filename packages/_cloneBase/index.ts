@@ -35,7 +35,7 @@ function cloneValue<T>(val: T, isDeep: boolean, cache: CacheClone) {
         cache.set(val, restObj)
         forEach(val, (item, key) => {
           restObj[key] = handleValueClone(item, isDeep, cache)
-        })
+        }, undefined, { symbol: true })
         return restObj
       }
       case 'date':
@@ -47,7 +47,7 @@ function cloneValue<T>(val: T, isDeep: boolean, cache: CacheClone) {
         const fn = new Function(`return ${val}`)() as any
         forEach(val, (value, key) => {
           fn[key] = handleValueClone(value, isDeep, cache)
-        })
+        }, undefined, { symbol: true })
         return fn
       }
       case 'symbol': {
