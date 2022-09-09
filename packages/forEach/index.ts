@@ -1,5 +1,6 @@
 import { isArray } from '../isArray'
 import { isObject } from '../isObject'
+import { typeOf } from '../typeOf'
 /**
  * 遍历对象和数组
  *
@@ -14,7 +15,7 @@ import { isObject } from '../isObject'
  * @param data
  * @param fn
  */
-export function forEach<T extends []>(source: T, fn: (value: T[number], index: number, source: T) => void): void
+export function forEach<T extends Array<any>>(source: T, fn: (value: T[number], index: number, source: T) => void): void
 export function forEach<T extends {}>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
 export function forEach<T>(source: T, fn: (value: any, index: any, source: T) => void, config?: { symbol?: boolean }) {
   if (isArray(source)) {
@@ -33,5 +34,11 @@ export function forEach<T>(source: T, fn: (value: any, index: any, source: T) =>
       if (symbolKeys.length)
         forEach(symbolKeys, key => fn(source[key as unknown as string], key, source))
     }
+  }
+  else if (typeOf(source) === 'map') {
+    forEach(Array.from(source as Map<any, any>), ([key, value]) => fn(value, key, source))
+  }
+  else if (typeOf(source) === 'set') {
+    forEach(Array.from(source as Set<any>), (value, index) => fn(value, index, source))
   }
 }
