@@ -7,7 +7,7 @@ import { typeOf } from '../typeOf'
  *
  * `forEach([1, 2, 3], (v, index) => { console.log(v, index) })`
  *
- *  //=> 1 2 3
+ *  //=> 10 21 32
  *
  * `forEach({ a:1, b:2, c:3 }, (v, key) => { console.log(v, key) })`
  *
