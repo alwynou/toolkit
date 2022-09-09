@@ -16,7 +16,9 @@ import { typeOf } from '../typeOf'
  * @param fn
  */
 export function forEach<T extends Array<any>>(source: T, fn: (value: T[number], index: number, source: T) => void): void
-export function forEach<T extends {}>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
+export function forEach<T extends object>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
+export function forEach<T extends Map<any, any>>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void): void
+export function forEach<T extends Set<any>>(source: T, fn: (value: T[keyof T], key: number, source: T) => void): void
 export function forEach<T>(source: T, fn: (value: any, index: any, source: T) => void, config?: { symbol?: boolean }) {
   if (isArray(source)) {
     const len = source.length
