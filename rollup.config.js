@@ -22,22 +22,22 @@ rollupConfig.push({
   input,
   output: [
     {
-      file: 'dist/index.cjs.js',
+      file: 'dist/index.cjs',
       format: 'cjs',
     },
     {
-      file: 'dist/index.esm.js',
+      file: 'dist/index.mjs',
       format: 'es',
     },
     {
-      file: 'dist/index.iife.js',
+      file: 'dist/index.js',
       format: 'iife',
       extend: true,
       name: iifeName,
       globals: iifeGlobals,
     },
     {
-      file: 'dist/index.iife.min.js',
+      file: 'dist/index.min.js',
       format: 'iife',
       extend: true,
       name: iifeName,
