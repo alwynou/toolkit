@@ -7,7 +7,9 @@ describe('omit', () => {
       a: 1,
       d: { name: 'old', age: 18 },
       g: [{ name: 1 }, 2, 3],
+      obj: {},
     }
+
     const otherObj = {
       c: 1,
       d: { name: 'new', aa: 19, class: 'info' },
@@ -33,6 +35,7 @@ describe('omit', () => {
           4,
           "add",
         ],
+        "obj": {},
       }
     `)
   })

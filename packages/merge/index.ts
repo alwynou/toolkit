@@ -11,27 +11,19 @@ export function merge(...args: any[]): any {
   const argLen = args.length
   let result = args[index]
   while (index < argLen)
-    result = mergeImp(result, args[index++])
+    result = mergeImp(result, args[++index])
   return result
 }
 
 const isObjectType = (t: string) => ['array', 'object'].includes(t)
 const copyData = (v: any) => Array.isArray(v) ? [...v] : isObject(v) ? { ...v } : v
 
-function mergeImp(pre: any, next: any) {
-  next = copyData(next)
-  if (!pre)
+function mergeImp(_pre: any, _next: any) {
+  const next = copyData(_next)
+  if (!_pre)
     return next
 
-  pre = copyData(pre)
-
-  const preType = typeOf(pre)
-  const nextType = typeOf(next)
-  if (preType !== nextType)
-    return pre
-
-  if (!isObjectType(preType))
-    return next
+  const pre = copyData(_pre)
 
   forEach(next, (value, keyOrIndex) => {
     if (isObjectType(typeOf(value)))
