@@ -16,7 +16,7 @@ import { typeOf } from '../typeOf'
  * @param fn
  */
 export function forEach<T extends Array<any>>(source: T, fn: (value: T[number], index: number, source: T) => void): void
-export function forEach<T extends object>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
+export function forEach<T extends Record<string | symbol, any>>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
 export function forEach<T extends Map<any, any>>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void): void
 export function forEach<T extends Set<any>>(source: T, fn: (value: T[keyof T], key: number, source: T) => void): void
 export function forEach<T>(source: T, fn: (value: any, index: any, source: T) => void, config?: { symbol?: boolean }) {
@@ -29,12 +29,14 @@ export function forEach<T>(source: T, fn: (value: any, index: any, source: T) =>
     const keys = Object.keys(source)
     for (let index = 0, len = keys.length; index < len; index++) {
       const key = keys[index]
+      // @ts-ignore
       fn(source[key], key, source)
     }
     if (config?.symbol) {
       const symbolKeys = Object.getOwnPropertySymbols(source)
       if (symbolKeys.length)
-        forEach(symbolKeys, key => fn(source[key as unknown as string], key, source))
+        // @ts-ignore
+        forEach(symbolKeys, (key: any) => fn(source[key], key, source))
     }
   }
   else if (typeOf(source) === 'map') {
