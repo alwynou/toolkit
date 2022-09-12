@@ -5,13 +5,10 @@ export function tree<T extends {} | []>(
   fn: (data: any, parent: any) => void,
   config: { key?: string } = {},
 ) {
-  if (!isObjectType(source))
-    return
-
   const { key: childKey = 'children' } = config
 
   function treeLoop(_source: T, parent?: T) {
-    if (!_source)
+    if (!isObjectType(_source))
       return
 
     const source = Array.isArray(_source) ? _source : [_source]
