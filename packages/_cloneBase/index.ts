@@ -23,14 +23,14 @@ function cloneValue<T>(val: T, isDeep: boolean, cache: CacheClone) {
     if (cacheVal)
       return cacheVal
 
-    switch (typeOf(val)) {
+    const t = typeOf(val)
+    switch (t) {
       case 'object':
       case 'array':
       case 'arguments': {
         let arg
-        if (Array.isArray(val))
-          arg = val.length
-
+        if (t === 'array')
+          arg = (val as []).length
         const restObj = getCtorObject(val, arg)
         cache.set(val, restObj)
         forEach(val, (item, key) => {

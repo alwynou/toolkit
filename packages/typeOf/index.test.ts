@@ -10,4 +10,7 @@ test('Get type tag', () => {
   expect(typeOf(undefined)).toBe('undefined')
   expect(typeOf(false)).toBe('boolean')
   expect(typeOf(new Date())).toBe('date')
+  expect(typeOf(new Map())).toBe('map')
+  expect(typeOf(new Set())).toBe('set')
+  expect(typeOf(() => {})).toBe('function')
 })
