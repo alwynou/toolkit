@@ -1,5 +1,5 @@
 const dts = require('rollup-plugin-dts').default
-const esbuild = require('rollup-plugin-esbuild').default
+const { default: esbuild, minify } = require('rollup-plugin-esbuild')
 const { pkgName, pkgFullName } = require('./scripts/constant')
 
 const input = `packages/${pkgName}/index.ts`
@@ -9,14 +9,6 @@ const iifeGlobals = {
   [pkgFullName]: iifeName,
 }
 const external = [pkgFullName]
-
-const esbuildMinifer = (options) => {
-  const { renderChunk } = esbuild(options)
-  return {
-    name: 'esbuild-minifer',
-    renderChunk,
-  }
-}
 
 rollupConfig.push({
   input,
@@ -42,9 +34,7 @@ rollupConfig.push({
       extend: true,
       name: iifeName,
       globals: iifeGlobals,
-      plugins: [esbuildMinifer({
-        minify: true,
-      })],
+      plugins: [minify()],
     },
   ],
   plugins: [

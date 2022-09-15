@@ -22,9 +22,9 @@ export function forEach<T>(source: T, fn: (value: any, index: any, source: T) =>
   switch (typeOf(source)) {
     case 'array':
     case 'string':{
-      const len = (source as []).length
+      const len = (source as unknown as []).length
       for (let index = 0; index < len; index++)
-        fn((source as [])[index], index, source)
+        fn((source as unknown as [])[index], index, source)
       break
     }
     case 'object': {
@@ -43,10 +43,10 @@ export function forEach<T>(source: T, fn: (value: any, index: any, source: T) =>
       break
     }
     case 'map':
-      forEach(Array.from(source as Map<any, any>), ([key, value]) => fn(value, key, source))
+      forEach(Array.from(source as unknown as Map<any, any>), ([key, value]) => fn(value, key, source))
       break
     case 'set':
-      forEach(Array.from(source as Set<any>), (value, index) => fn(value, index, source))
+      forEach(Array.from(source as unknown as Set<any>), (value, index) => fn(value, index, source))
       break
   }
 }
