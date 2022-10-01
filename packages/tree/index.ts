@@ -1,4 +1,4 @@
-import { isObjectType } from '../isObjectType'
+import { isObject } from '../isObject'
 
 export function tree<T extends {} | []>(
   source: T,
@@ -8,7 +8,7 @@ export function tree<T extends {} | []>(
   const { key: childKey = 'children' } = config
 
   function treeLoop(_source: T, parent?: T) {
-    if (!isObjectType(_source))
+    if (!isObject(_source))
       return
 
     const source = Array.isArray(_source) ? _source : [_source]

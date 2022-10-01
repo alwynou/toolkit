@@ -1,5 +1,5 @@
+import { isPlainObject } from '../isPlainObject'
 import { isObject } from '../isObject'
-import { isObjectType } from '../isObjectType'
 import { omit } from '../omit'
 import { pick } from '../pick'
 
@@ -25,7 +25,7 @@ export function treeMap<T extends treeItem | Array<treeItem>>(
   iterate: TreeMapIterate<treeItem>,
   options: TreeMapOption = {},
 ): T {
-  if (!isObjectType(source))
+  if (!isObject(source))
     return source
 
   let treeSource: Array<treeItem>
@@ -44,7 +44,7 @@ export function treeMap<T extends treeItem | Array<treeItem>>(
   function innerMap(tree: Array<treeItem>): Array<treeItem> {
     let needFilter = false
     const rawRet = tree.map((item, index, source) => {
-      if (!isObject(item)) {
+      if (!isPlainObject(item)) {
         needFilter = true
         return strict ? null as any : item
       }

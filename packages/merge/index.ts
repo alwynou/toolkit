@@ -1,5 +1,5 @@
 import { forEach } from '../forEach'
-import { isObject } from '../isObject'
+import { isPlainObject } from '../isPlainObject'
 import { typeOf } from '../typeOf'
 
 export function merge<A, B>(defaultObj: A, otherObj: B): A & B
@@ -15,8 +15,8 @@ export function merge(...args: any[]): any {
   return result
 }
 
-const isObjectType = (t: string) => ['array', 'object'].includes(t)
-const copyData = (v: any) => Array.isArray(v) ? [...v] : isObject(v) ? { ...v } : v
+const isObject = (t: string) => ['array', 'object'].includes(t)
+const copyData = (v: any) => Array.isArray(v) ? [...v] : isPlainObject(v) ? { ...v } : v
 
 function mergeImp(_pre: any, _next: any) {
   const next = copyData(_next)
@@ -26,7 +26,7 @@ function mergeImp(_pre: any, _next: any) {
   const pre = copyData(_pre)
 
   forEach(next, (value, keyOrIndex) => {
-    if (isObjectType(typeOf(value)))
+    if (isObject(typeOf(value)))
       pre[keyOrIndex] = merge(pre[keyOrIndex], value)
     else
       pre[keyOrIndex] = value

@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { isObject } from './index'
 
 describe('isObject', () => {
-  it('it just allow truly object pass.', () => {
-    // eslint-disable-next-line no-new-object
-    expect(isObject(new Object())).toBeTruthy()
-    expect(isObject({})).toBeTruthy()
-    expect(isObject([])).toBeFalsy()
+  it('should be falsy', () => {
     expect(isObject(null)).toBeFalsy()
-    expect(isObject(NaN)).toBeFalsy()
-    expect(isObject(() => {})).toBeFalsy()
+  })
+
+  it('should be truthy', () => {
+    expect(isObject([])).toBeTruthy()
+    expect(isObject({})).toBeTruthy()
+    expect(isObject(new Date())).toBeTruthy()
   })
 })

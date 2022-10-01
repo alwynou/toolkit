@@ -4,7 +4,7 @@
 
 import { debounce } from '../debounce'
 import type{ DebounceOptions, DebounceReturnType, Handler } from '../debounce'
-import { isObject } from '../isObject'
+import { isPlainObject } from '../isPlainObject'
 
 type ThrottleReturnType<T extends Handler> = DebounceReturnType<T>
 
@@ -26,7 +26,7 @@ export function throttle<T extends Handler>(
   let leading = true
   let trailing = true
 
-  if (isObject(options)) {
+  if (isPlainObject(options)) {
     leading = 'leading' in options ? !!options.leading : leading
     trailing = 'trailing' in options ? !!options.trailing : trailing
   }

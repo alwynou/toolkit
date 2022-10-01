@@ -1,4 +1,4 @@
-import { isObject } from '../isObject'
+import { isPlainObject } from '../isPlainObject'
 
 export type Handler = (...args: any[]) => any
 export type HandlerNoRet = (...args: any[]) => void
@@ -52,7 +52,7 @@ export function debounce<T extends Handler>(
   let trailing = true
 
   wait = Number(wait) || 0
-  if (isObject(options)) {
+  if (isPlainObject(options)) {
     leading = !!options.leading
     maxing = 'maxWait' in options
     maxWait = maxing ? Math.max(Number(options.maxWait) || 0, wait) : maxWait

@@ -1,4 +1,4 @@
-import { isObjectType } from '../isObjectType'
+import { isObject } from '../isObject'
 
 type Get<T, K> = K extends `${infer L}.${infer R}`
   ? L extends keyof T
@@ -11,7 +11,7 @@ type Get<T, K> = K extends `${infer L}.${infer R}`
 export function get<T extends object, K extends string>(obj: T, path: K): Get<T, K> {
   const pathArr = path.split('.')
   let curValue = obj as unknown as any
-  while (pathArr.length && isObjectType(curValue)) {
+  while (pathArr.length && isObject(curValue)) {
     const curKey = pathArr.shift()!
     curValue = curValue[curKey]
   }

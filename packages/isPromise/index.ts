@@ -1,5 +1,6 @@
 import { isFunction } from '../isFunction'
-import { isObjectType } from '../isObjectType'
+import { isObject } from '../isObject'
+import { typeOf } from '../typeOf'
 
 /**
  * 判断是否是Promise类型
@@ -16,5 +17,5 @@ import { isObjectType } from '../isObjectType'
  * @param promise
  */
 export function isPromise<T = any>(promise: unknown): promise is Promise<T> {
-  return isObjectType(promise) && isFunction(promise.then) && isFunction(promise.catch)
+  return typeOf(promise) === 'promise' || (isObject(promise) && isFunction(promise.then) && isFunction(promise.catch))
 }

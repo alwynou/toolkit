@@ -1,16 +1,20 @@
-import { typeOf } from '../typeOf'
-
 /**
- * 判断是否是真正的对象类型(严格判断)
- *
- * `isObject({})`
- * // => true
+ * 判断是否是对象类型（`null`不为对象类型），注意: `array`也为对象。
  *
  * `isObject([])`
- * // => false
+ *  //=> true
+ *
+ * `isObject({})`
+ * //=> true
+ *
+ * `isObject(null)`
+ * //=> false
+ *
+ * `isObject(1)`
+ * //=> false
  *
  * @param obj
  */
 export function isObject(obj: unknown): obj is Record<any, any> {
-  return typeOf(obj) === 'object'
+  return obj !== null && typeof obj === 'object'
 }
