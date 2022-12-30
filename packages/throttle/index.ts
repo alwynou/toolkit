@@ -3,7 +3,7 @@
  */
 
 import { debounce } from '../debounce'
-import type{ DebounceOptions, DebounceReturnType, Handler } from '../debounce'
+import type { DebounceOptions, DebounceReturnType, Handler } from '../debounce'
 import { isPlainObject } from '../isPlainObject'
 
 type ThrottleReturnType<T extends Handler> = DebounceReturnType<T>
