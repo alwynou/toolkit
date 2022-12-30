@@ -15,7 +15,7 @@ import { typeOf } from '../typeOf'
  */
 export function forEach<T extends Array<any>>(source: T, fn: (value: T[number], index: number, source: T) => void): void
 export function forEach<T extends string>(source: T, fn: (value: T[number], index: number, source: T) => void): void
-export function forEach<T extends Record<string | symbol, any>>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
+export function forEach<T extends Record<PropertyKey, any>>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void, config?: { symbol?: boolean }): void
 export function forEach<T extends Map<any, any>>(source: T, fn: (value: T[keyof T], key: keyof T, source: T) => void): void
 export function forEach<T extends Set<any>>(source: T, fn: (value: T[keyof T], key: number, source: T) => void): void
 export function forEach<T>(source: T, fn: (value: any, index: any, source: T) => void, config?: { symbol?: boolean }) {
@@ -28,18 +28,17 @@ export function forEach<T>(source: T, fn: (value: any, index: any, source: T) =>
       break
     }
     case 'object': {
-      const keys = Object.keys(source as {})
+      let keys = Object.keys(source as any)
+
+      if (config?.symbol)
+        keys = keys.concat(Object.getOwnPropertySymbols(source) as any)
+
       for (let index = 0, len = keys.length; index < len; index++) {
         const key = keys[index]
         // @ts-ignore
         fn(source[key], key, source)
       }
-      if (config?.symbol) {
-        const symbolKeys = Object.getOwnPropertySymbols(source)
-        if (symbolKeys.length)
-        // @ts-ignore
-          forEach(symbolKeys, (key: any) => fn(source[key], key, source))
-      }
+
       break
     }
     case 'map':
