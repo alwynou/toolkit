@@ -56,7 +56,7 @@ export function treeMap<T extends treeItem | Array<treeItem>>(
 
       if (pickKeys)
         rawRet = pick(rawRet, pickKeys)
-      else if (omitKeys)
+      if (omitKeys)
         rawRet = omit(rawRet, omitKeys)
 
       return rawRet

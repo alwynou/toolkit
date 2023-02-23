@@ -36,9 +36,3 @@ export function plimit(concurrenceNum = 4) {
   return limit
 }
 
-export function pqueue(fns: Function[]) {
-  const p = plimit(1)
-  return Promise.all(fns.map((fn) => {
-    return p(fn)
-  }))
-}
